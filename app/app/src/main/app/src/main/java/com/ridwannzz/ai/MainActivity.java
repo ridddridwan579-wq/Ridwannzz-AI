@@ -5,7 +5,7 @@ import android.os.*;
 import android.graphics.Color;
 import android.view.*;
 import android.widget.*;
-
+import android.content.Intent;
 public class MainActivity extends Activity {
 
     LinearLayout layout;
