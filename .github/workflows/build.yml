@@ -2,30 +2,35 @@ name: Build Ridwannzz AI APK
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ambil kode
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Siapkan Java
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Siapkan Android SDK
+      - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Build APK
-        run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
 
-      - name: Simpan APK
+      - name: Build APK
+        run: gradle assembleDebug
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: Ridwannzz-AI-APK
